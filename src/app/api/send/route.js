@@ -1,6 +1,6 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend('re_Jg4MLWGx_LWTa7rGmFB2KVvCjLR6XS18b');
 const from = new Resend(process.env.FROM_EMAIL);
 
 export async function POST() {
