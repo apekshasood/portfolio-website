@@ -7,7 +7,7 @@ const ContactMe = () => {
     message: ''
 });
 
-const handleChange = (e) => {
+const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
         ...formData,
@@ -15,7 +15,7 @@ const handleChange = (e) => {
     });
 };
 
-const handleSubmit = (e) => {
+const handleSubmit = (e: any) => {
     e.preventDefault();
     // Add logic to handle form submission (e.g., sending data to backend)
     console.log(formData);
