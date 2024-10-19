@@ -7,24 +7,33 @@ const webDevelopmentSkills = [
   { name: 'Photoshop', percent: 70 },
   { name: 'Adobe XD', percent: 80 },
   { name: 'Wireframing', percent: 70 },
-  { name: 'Responsive Designing', percent: 80 },
+  { name: 'Responsive Design', percent: 80 },
   // Add more skills as needed
 ]
 
 const frontendSkills = [
-  { name: 'HTML', percent: 90 },
-  { name: 'CSS', percent: 90 },
-  { name: 'React Native', percent: 85 },
+  { name: 'JavaScript', percent: 85 },
   { name: 'React', percent: 85 },
-  { name: 'Angular', percent: 65 },
+  { name: 'React Native', percent: 85 },
+  { name: 'Angular', percent: 70 },
   { name: 'GraphQL', percent: 75 },
-  { name: 'Tailwind', percent: 75 },
+  { name: 'Redux', percent: 75 },
+  { name: 'Tailwind CSS', percent: 80 },
+  // Add more skills as needed
+]
+
+const backendSkills = [
+  { name: 'Node.js', percent: 75 },
+  { name: 'MySQL', percent: 70 },
+  { name: 'RESTful APIs', percent: 80 },
+  { name: 'AWS (S3, EC2)', percent: 65 },
   // Add more skills as needed
 ]
 
 const Skills = () => {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
+
   return (
     <div
       id="skills"
@@ -41,6 +50,7 @@ const Skills = () => {
         >
           {'<Skills />'}
         </motion.h1>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
@@ -49,6 +59,7 @@ const Skills = () => {
           <SkillsContainer
             webDevelopmentSkills={webDevelopmentSkills}
             frontendSkills={frontendSkills}
+            // backendSkills={backendSkills} // Added backend skills
           />
         </motion.div>
       </div>

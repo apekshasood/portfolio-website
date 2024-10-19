@@ -76,7 +76,7 @@ const Navbar = () => {
           >
             SKILLS
           </ScrollLink>
-          <ScrollLink
+          {/* <ScrollLink
             to="contact"
             smooth={true}
             offset={-70}
@@ -85,7 +85,7 @@ const Navbar = () => {
             activeClass="text-[#C652EE]"
           >
             CONTACT
-          </ScrollLink>
+          </ScrollLink> */}
         </div>
       </div>
 
@@ -148,7 +148,7 @@ const Navbar = () => {
           >
             EXPERIENCE
           </ScrollLink>
-          <ScrollLink
+          {/* <ScrollLink
             to="contact"
             smooth={true}
             offset={-70}
@@ -158,7 +158,7 @@ const Navbar = () => {
             onClick={toggleMenu}
           >
             CONTACT
-          </ScrollLink>
+          </ScrollLink> */}
         </ul>
       </div>
 

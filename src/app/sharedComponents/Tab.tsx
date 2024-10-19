@@ -51,37 +51,32 @@ function TabContent({ heading, yoe, description }: TabContentProps) {
   )
 }
 
+// Job experiences extracted from your CV
 const tabs = [
   {
     id: 1,
-    label: 'Gojoko Technology Noida',
+    label: 'Gojoko Technology Pvt Ltd',
     heading: 'Frontend Developer',
     yoe: 'Oct 2022 - Present',
     description: [
-      'Design, develop, test and deploy design features in a timely manner.',
-      'Continually work to ensure the user experience determines design choices.',
-      'Work to achieve a balance between functional and aesthetic designs.',
-      'Maintain brand consistency throughout the design process.',
-      'Apply engineering best practices.',
-      'Work to solve complex challenges with the utilization of modern web application development processes and standard methodologies.',
-      'Create wireframes to illustrate advanced solutions for applications.',
-      'Proven experience working with AngularJS and React Native.',
-      'Wrote unit tests for components and services to ensure code stability and reduce bugs.',
+      'Developed and maintained product websites and web apps using React.js, Next.js, and Angular, improving site performance by 25%.',
+      'Led the development of Gojoko’s new website using Next.js, resulting in a 30% increase in performance metrics and improved user engagement.',
+      'Worked on a credit card project using React Native, reducing app load times by 20% and enhancing user satisfaction.',
+      'Integrated GraphQL for efficient data management, improving data fetching times by 15%.',
+      'Collaborated with cross-functional teams to optimize applications for speed and scalability, leading to a 25% increase in development efficiency.',
     ],
   },
   {
     id: 2,
-    label: 'Newgen Software Pvt Ltd Noida',
-    heading: 'Sr. Software Engineer',
+    label: 'Newgen Software Pvt Ltd',
+    heading: 'Senior Software Engineer',
     yoe: 'Sept 2020 - Oct 2022',
     description: [
-      'Made high-level contributions to a team leading site optimizations.',
-      'Worked with teams to solve issues and find and implement efficiencies.',
-      'Collaborated with product managers to design cutting-edge features.',
-      'Worked to create tools that enhanced user interaction in any browser.',
-      'Ensured the technology implemented promoted efficiency, speed, and smooth functionality.',
-      'Continually tested the site for usability while addressing any bugs.',
-      'Developed a single-page web application using React, Redux, and TypeScript that enabled users to access the company’s resources with ease.',
+      'Led a major process re-engineering project in React.js and React Native, enhancing service efficiency by 25% and reducing communication errors by 15%.',
+      'Implemented micro frontend architecture using Webpack Module Federation to improve build times and deployment flexibility.',
+      'Collaborated with product managers to design cutting-edge features and tools that enhanced user interaction in any browser.',
+      'Developed a single-page web application using React, Redux, and TypeScript, enabling users to easily access company resources.',
+      'Ensured top-notch code quality through peer reviews and implemented a CI/CD pipeline, reducing time-to-deployment from 5 days to 2 hours.',
     ],
   },
 ]

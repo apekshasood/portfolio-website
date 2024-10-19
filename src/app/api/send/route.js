@@ -1,20 +1,42 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer'
 
-const resend = new Resend('re_Jg4MLWGx_LWTa7rGmFB2KVvCjLR6XS18b');
-// const from = new Resend(process.env.FROM_EMAIL);
+export async function POST(req, res) {
+  const { name, email, message } = await req.json()
 
-export async function POST() {
+  // Validate input data
+  if (!name || !email || !message) {
+    return res.status(400).json({ error: 'All fields are required' })
+  }
+
+  // Nodemailer transport configuration
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // You can use other services like SendGrid, etc.
+    auth: {
+      user: process.env.EMAIL_USER, // Your email address
+      pass: process.env.EMAIL_PASSWORD, // Your email password (use environment variables for security)
+    },
+  })
+
+  // Email content
+  const mailOptions = {
+    from: email, // Sender's email
+    to: 'apekshasood03@gmail.com', // Your email where you want to receive the message
+    subject: `New contact message from ${name}`,
+    text: message,
+  }
+
   try {
-    const data = await resend.emails.send({
-      from: 'Apeksha apeksha1396@gmail.com',
-      to: ['apeksha0513@gmail.com'],
-      subject: 'Hello world',
-      react: (<>
-      <p>Email body</p></>),
-    });
-
-    return Response.json(data);
+    await transporter.sendMail(mailOptions)
+    return new Response(
+      JSON.stringify({ message: 'Email sent successfully' }),
+      {
+        status: 200,
+      },
+    )
   } catch (error) {
-    return Response.json({ error });
+    console.error('Error sending email:', error)
+    return new Response(JSON.stringify({ error: 'Email not sent' }), {
+      status: 500,
+    })
   }
 }

@@ -9,7 +9,7 @@ const HomeSection = () => {
   const isInView = useInView(ref, { once: true })
 
   const handleDownloadCV = () => {
-    window.open('.../public/resume/ResumeApekshaSood.pdf', '_blank')
+    window.open('/resume/ResumeApekshaSood.pdf', '_blank')
   }
 
   const handleHireMe = () => {
@@ -96,7 +96,9 @@ const HomeSection = () => {
         </h1>
         <h3 className="text-[#C5C4CA] text-center lg:text-left">
           Passionate about building dynamic web applications and user-friendly
-          interfaces using React, Angular, GraphQL, and more.
+          interfaces using React, React Native, Angular, GraphQL, and more, with
+          a strong commitment to creating innovative solutions that enhance user
+          experience and drive engagement.
         </h3>
         <div className="flex flex-col sm:flex-row gap-4 mt-6">
           <motion.button
@@ -107,14 +109,14 @@ const HomeSection = () => {
           >
             Download CV
           </motion.button>
-          <motion.button
+          {/* <motion.button
             onClick={handleHireMe}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             className="w-full sm:w-auto px-6 py-2 rounded-lg text-[#C5C4CA] border-2 border-[#C652EE]"
           >
             Hire Me
-          </motion.button>
+          </motion.button> */}
         </div>
         <div className="pt-12">
           <div className="hidden lg:block">
@@ -122,7 +124,7 @@ const HomeSection = () => {
             <h1 className="text-[#8172B7] py-2">|</h1>
             <h1 className="text-[#8172B7]">|</h1>
           </div>
-          <div className="flex place-content-start lg:flex-col flex-row lg:space-y-4 lg:space-x-0 space-x-10 py-2">
+          <div className="flex place-content-start lg:flex-col flex-row lg:space-y-4 space-x-4 lg:space-x-0 py-2 items-center">
             <Link
               href="https://www.linkedin.com/in/apeksha-sood/"
               target="_blank"
@@ -132,8 +134,8 @@ const HomeSection = () => {
                 <Image
                   src="/images/LinkedIn-Icon.svg"
                   alt="LinkedIn Icon"
-                  width={20}
-                  height={20}
+                  width={30}
+                  height={30}
                 />
               </motion.div>
             </Link>
@@ -146,8 +148,8 @@ const HomeSection = () => {
                 <Image
                   src="/images/Behance-Icon.svg"
                   alt="Behance Icon"
-                  width={20}
-                  height={20}
+                  width={30} // Ensure both icons have the same size
+                  height={30}
                 />
               </motion.div>
             </Link>

@@ -2,13 +2,11 @@ import { motion, useInView } from 'framer-motion'
 import React, { useRef } from 'react'
 
 const AboutMe = () => {
-  // Create separate refs for each section
   const refHeading = useRef(null)
   const refDescription = useRef(null)
   const refSkills = useRef(null)
   const refPhilosophy = useRef(null)
 
-  // Detect when each section comes into view
   const isHeadingInView = useInView(refHeading, { once: true })
   const isDescriptionInView = useInView(refDescription, { once: true })
   const isSkillsInView = useInView(refSkills, { once: true })
@@ -37,11 +35,13 @@ const AboutMe = () => {
           transition={{ duration: 0.5, delay: 0.1 }}
         >
           <p className="text-lg text-[#C5C4CA]">
-            A passionate front-end developer with expertise in React, React
-            Native, and Angular. I thrive on crafting captivating digital
-            experiences. With 3+ years of hands-on experience, I have honed my
-            skills in building user-friendly and visually stunning web and
-            mobile applications.
+            Frontend Developer with 4 years of experience in creating responsive
+            and user-friendly web and mobile applications using React, React
+            Native, Angular, and GraphQL. Improved application performance by
+            40% and reduced bugs by 70% to enhance overall user experience.
+            Passionate about building dynamic web applications and user-friendly
+            interfaces with a strong commitment to creating innovative solutions
+            that enhance user experience and drive engagement.
           </p>
         </motion.div>
 
@@ -64,6 +64,7 @@ const AboutMe = () => {
             <li>🔍 GraphQL</li>
             <li>🌟 Tailwind CSS, Bootstrap</li>
             <li>☁️ Firebase, Node.js</li>
+            <li>☁️ AWS (S3, Cloudfront, EC2, Lambda, Api Gateway)</li>
           </ul>
         </motion.div>
 
