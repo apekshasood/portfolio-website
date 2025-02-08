@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface TabProps {
   label: string
@@ -8,16 +9,18 @@ interface TabProps {
 
 function Tab({ label, isActive, onClick }: TabProps) {
   return (
-    <div
+    <motion.div
       className={`cursor-pointer p-4 transition-all duration-300 ease-in-out ${
         isActive
           ? 'border-l-4 border-[#C652EE] text-[#C652EE] font-bold'
           : 'text-[#C5C4CA] hover:text-[#C652EE]'
       }`}
       onClick={onClick}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
     >
       {label}
-    </div>
+    </motion.div>
   )
 }
 
@@ -29,15 +32,20 @@ interface TabContentProps {
 
 function TabContent({ heading, yoe, description }: TabContentProps) {
   return (
-    <div className="p-4">
-      <h1 className="text-xl text-[#C652EE] font-semibold">
+    <motion.div
+      className="p-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <h1 className="text-2xl text-[#C652EE] font-semibold mb-2">
         {heading.toUpperCase()}
       </h1>
-      <h2 className="text-sm py-1 text-[#C5C4CA]">{yoe}</h2>
-      <h3 className="text-sm pb-3 text-[#C5C4CA] font-medium">
+      <h2 className="text-sm py-1 text-[#C5C4CA] mb-4">{yoe}</h2>
+      <h3 className="text-lg pb-3 text-[#C5C4CA] font-medium">
         Key Responsibilities:
       </h3>
-      <ul className="list-disc ps-6">
+      <ul className="list-disc ps-6 space-y-2">
         {description.map((point, index) => (
           <li
             key={index}
@@ -47,11 +55,10 @@ function TabContent({ heading, yoe, description }: TabContentProps) {
           </li>
         ))}
       </ul>
-    </div>
+    </motion.div>
   )
 }
 
-// Job experiences extracted from your CV
 const tabs = [
   {
     id: 1,
@@ -60,7 +67,7 @@ const tabs = [
     yoe: 'Oct 2022 - Present',
     description: [
       'Developed and maintained product websites and web apps using React.js, Next.js, and Angular, improving site performance by 25%.',
-      'Led the development of Gojoko’s new website using Next.js, resulting in a 30% increase in performance metrics and improved user engagement.',
+      "Led the development of Gojoko's new website using Next.js, resulting in a 30% increase in performance metrics and improved user engagement.",
       'Worked on a credit card project using React Native, reducing app load times by 20% and enhancing user satisfaction.',
       'Integrated GraphQL for efficient data management, improving data fetching times by 15%.',
       'Collaborated with cross-functional teams to optimize applications for speed and scalability, leading to a 25% increase in development efficiency.',
@@ -89,8 +96,8 @@ function Tabs() {
   }
 
   return (
-    <div className="grid grid-cols-12">
-      <div className="col-span-5">
+    <div className="grid md:grid-cols-12 gap-8">
+      <div className="md:col-span-5">
         {tabs.map((tab) => (
           <Tab
             key={tab.id}
@@ -100,7 +107,7 @@ function Tabs() {
           />
         ))}
       </div>
-      <div className="col-span-7 border-l-4 border-[#C652EE] pl-4">
+      <div className="md:col-span-7 border-l-4 border-[#C652EE] pl-4">
         <TabContent {...tabs.find((tab) => tab.id === activeTab)!} />
       </div>
     </div>

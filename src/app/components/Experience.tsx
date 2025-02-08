@@ -1,37 +1,34 @@
+'use client'
+
 import Tabs from '@/app/sharedComponents/Tab'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 
 const Experience = () => {
-  // Create a ref for the section
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true }) // Animation triggers once when it comes into view
+  const isInView = useInView(ref, { once: true })
 
   return (
-    <div id="experience" className="container mx-auto my-6">
+    <div id="experience" className="py-16 lg:py-32">
       <motion.div
-        ref={ref} // Attach the ref to the container
+        ref={ref}
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}} // Animate only when in view
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.5 }}
-        className="items-center"
+        className="container mx-auto px-4"
       >
-        {/* Heading */}
-        <h1 className="text-center text-4xl lg:text-6xl font-extrabold text-[#C5C4CA] py-12">
+        <h1 className="text-center text-4xl lg:text-6xl font-extrabold text-[#C5C4CA] mb-12">
           {'<Experience />'}
         </h1>
 
-        {/* Tabs */}
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}} // Animate the Tabs component when in view
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <Tabs />
-          </motion.div>
-        </div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          <Tabs />
+        </motion.div>
       </motion.div>
     </div>
   )

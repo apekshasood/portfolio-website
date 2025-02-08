@@ -1,5 +1,7 @@
-import React, { useRef } from 'react'
-import { motion, useInView } from 'framer-motion' // Importing Framer Motion
+'use client'
+
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 import SkillsContainer from '../sharedComponents/SkillContainer'
 
 const webDevelopmentSkills = [
@@ -8,7 +10,6 @@ const webDevelopmentSkills = [
   { name: 'Adobe XD', percent: 80 },
   { name: 'Wireframing', percent: 70 },
   { name: 'Responsive Design', percent: 80 },
-  // Add more skills as needed
 ]
 
 const frontendSkills = [
@@ -19,15 +20,6 @@ const frontendSkills = [
   { name: 'GraphQL', percent: 75 },
   { name: 'Redux', percent: 75 },
   { name: 'Tailwind CSS', percent: 80 },
-  // Add more skills as needed
-]
-
-const backendSkills = [
-  { name: 'Node.js', percent: 75 },
-  { name: 'MySQL', percent: 70 },
-  { name: 'RESTful APIs', percent: 80 },
-  { name: 'AWS (S3, EC2)', percent: 65 },
-  // Add more skills as needed
 ]
 
 const Skills = () => {
@@ -38,12 +30,12 @@ const Skills = () => {
     <div
       id="skills"
       ref={ref}
-      className="container mx-auto my-6 bg-cover bg-center py-4"
-      style={{ backgroundImage: `url('/images/Skill-bg.svg')`, opacity: 0.8 }}
+      className="py-16 lg:py-32 bg-cover bg-center bg-fixed"
+      style={{ backgroundImage: `url('/images/Skill-bg.svg')` }}
     >
-      <div className="items-center">
+      <div className="container mx-auto px-4">
         <motion.h1
-          className="text-center text-4xl lg:text-6xl font-extrabold text-[#C5C4CA] py-12"
+          className="text-center text-4xl lg:text-6xl font-extrabold text-[#C5C4CA] mb-12"
           initial={{ opacity: 0, y: -50 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
@@ -59,7 +51,6 @@ const Skills = () => {
           <SkillsContainer
             webDevelopmentSkills={webDevelopmentSkills}
             frontendSkills={frontendSkills}
-            // backendSkills={backendSkills} // Added backend skills
           />
         </motion.div>
       </div>

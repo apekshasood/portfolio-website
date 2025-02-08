@@ -1,174 +1,111 @@
-import Link from 'next/link'
+'use client'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link as ScrollLink } from 'react-scroll'
+import { motion, AnimatePresence } from 'framer-motion'
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
-  // Toggle the mobile menu
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
+  const navItems = [
+    { name: 'HOME', to: 'home' },
+    { name: 'ABOUT', to: 'about' },
+    { name: 'EXPERIENCE', to: 'experience' },
+    { name: 'SKILLS', to: 'skills' },
+  ]
+
   return (
-    <nav className="sticky top-0 z-50">
-      {/* Main Navbar */}
-      <div className="flex items-center justify-between p-6 bg-[#21242E]">
-        <Image src="/images/Logo.svg" alt="Home" width={150} height={150} />
+    <nav
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-[#21242E] shadow-lg' : 'bg-transparent'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-4">
+          <Image src="/images/Logo.svg" alt="Logo" width={150} height={50} />
 
-        {/* Hamburger for mobile */}
-        <div className="block md:hidden" onClick={toggleMenu}>
-          <svg
-            className="w-8 h-8 cursor-pointer"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16m-7 6h7"
-            ></path>
-          </svg>
-        </div>
+          <div className="hidden md:flex items-center space-x-8">
+            {navItems.map((item) => (
+              <ScrollLink
+                key={item.to}
+                to={item.to}
+                smooth={true}
+                offset={-70}
+                duration={500}
+                className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE] transition-colors duration-300"
+                activeClass="text-[#C652EE]"
+              >
+                {item.name}
+              </ScrollLink>
+            ))}
+          </div>
 
-        {/* Desktop Menu */}
-        <div className="hidden md:flex md:items-center md:space-x-10">
-          <ScrollLink
-            to="home"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE]"
-            activeClass="text-[#C652EE]"
-          >
-            HOME
-          </ScrollLink>
-          <ScrollLink
-            to="about"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE]"
-            activeClass="text-[#C652EE]"
-          >
-            ABOUT
-          </ScrollLink>
-          <ScrollLink
-            to="experience"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE]"
-            activeClass="text-[#C652EE]"
-          >
-            EXPERIENCE
-          </ScrollLink>
-          <ScrollLink
-            to="skills"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE]"
-            activeClass="text-[#C652EE]"
-          >
-            SKILLS
-          </ScrollLink>
-          {/* <ScrollLink
-            to="contact"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer text-[#C5C4CA] font-bold hover:text-[#C652EE]"
-            activeClass="text-[#C652EE]"
-          >
-            CONTACT
-          </ScrollLink> */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-white focus:outline-none"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16m-7 6h7"
+                ></path>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Side Menu */}
-      <div
-        className={`fixed inset-0 bg-[#21242E] transform ${
-          isMenuOpen ? 'translate-x-0' : '-translate-x-full'
-        } transition-transform duration-300 ease-in-out z-40 md:hidden`}
-      >
-        <div className="flex items-center justify-between p-6">
-          <Image src="/images/Logo.svg" alt="Home" width={150} height={150} />
-          <svg
-            className="w-8 h-8 cursor-pointer text-white"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            onClick={toggleMenu}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-[#21242E] shadow-lg"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
-          </svg>
-        </div>
-
-        {/* Mobile Links */}
-        <ul className="flex flex-col items-center space-y-8 mt-12 text-lg font-semibold text-white">
-          <ScrollLink
-            to="home"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer"
-            activeClass="text-[#C652EE]"
-            onClick={toggleMenu}
-          >
-            HOME
-          </ScrollLink>
-          <ScrollLink
-            to="about"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer"
-            activeClass="text-[#C652EE]"
-            onClick={toggleMenu}
-          >
-            ABOUT
-          </ScrollLink>
-          <ScrollLink
-            to="experience"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer"
-            activeClass="text-[#C652EE]"
-            onClick={toggleMenu}
-          >
-            EXPERIENCE
-          </ScrollLink>
-          {/* <ScrollLink
-            to="contact"
-            smooth={true}
-            offset={-70}
-            duration={500}
-            className="cursor-pointer"
-            activeClass="text-[#C652EE]"
-            onClick={toggleMenu}
-          >
-            CONTACT
-          </ScrollLink> */}
-        </ul>
-      </div>
-
-      {/* Background Overlay for mobile menu */}
-      {isMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 z-30"
-          onClick={toggleMenu}
-        ></div>
-      )}
+            <div className="container mx-auto px-4 py-4">
+              {navItems.map((item) => (
+                <ScrollLink
+                  key={item.to}
+                  to={item.to}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
+                  className="block py-2 text-[#C5C4CA] font-bold hover:text-[#C652EE] transition-colors duration-300"
+                  activeClass="text-[#C652EE]"
+                  onClick={toggleMenu}
+                >
+                  {item.name}
+                </ScrollLink>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   )
 }
