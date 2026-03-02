@@ -8,15 +8,15 @@ const ContactMe = () => {
   })
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement
     setFormData({
       ...formData,
       [name]: value,
     })
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const { name, email, message } = formData
 
