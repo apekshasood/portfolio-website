@@ -2,40 +2,84 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  scroll-behavior: smooth;
-}
-
+/* ─── Design Tokens ─────────────────────────────── */
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --bg:           #F8FAFF;
+  --bg-2:         #EEF2FF;
+  --surface:      #FFFFFF;
+  --surface-2:    #F1F5F9;
+  --border:       #DDE3F0;
+  --text:         #0D1130;
+  --text-muted:   #5A6480;
+  --text-subtle:  #9BA4BE;
+  --accent:       #6D28D9;
+  --accent-2:     #8B5CF6;
+  --accent-glow:  rgba(109, 40, 217, 0.18);
+  --dot:          rgba(0, 0, 0, 0.045);
+
+  /* Code editor tokens (same in both modes — editor always dark) */
+  --code-bg:      #1E1E3F;
+  --code-border:  #2D2B55;
+  --code-keyword: #C792EA;
+  --code-const:   #82AAFF;
+  --code-string:  #C3E88D;
+  --code-number:  #F78C6C;
+  --code-comment: #637777;
+  --code-punct:   #89DDFF;
+  --code-prop:    #FFCB6B;
+  --code-bool:    #F07178;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+.dark {
+  --bg:           #05091A;
+  --bg-2:         #080E22;
+  --surface:      #0C1329;
+  --surface-2:    #111D38;
+  --border:       #1B2644;
+  --text:         #E8EDF8;
+  --text-muted:   #8492B8;
+  --text-subtle:  #4D5D85;
+  --accent:       #8B5CF6;
+  --accent-2:     #A78BFA;
+  --accent-glow:  rgba(139, 92, 246, 0.2);
+  --dot:          rgba(255, 255, 255, 0.03);
 }
+
+/* ─── Base ───────────────────────────────────────── */
+html { scroll-behavior: smooth; }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-color: var(--bg);
+  color: var(--text);
+  transition: background-color 0.35s ease, color 0.35s ease;
+  -webkit-font-smoothing: antialiased;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+/* ─── Dot-grid background ────────────────────────── */
+.dot-grid {
+  background-image: radial-gradient(circle, var(--dot) 1.5px, transparent 1.5px);
+  background-size: 28px 28px;
 }
 
-.progress-bar {
-  width: calc(var(--tw-progress-percent) * 1%);
+/* ─── Gradient text ──────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(130deg, var(--accent) 0%, var(--accent-2) 60%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+/* ─── Blinking cursor in code editor ────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink { animation: blink 1.1s step-end infinite; }
+
+/* ─── Scrollbar ──────────────────────────────────── */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+/* ─── Selection ──────────────────────────────────── */
+::selection { background: var(--accent); color: #fff; }

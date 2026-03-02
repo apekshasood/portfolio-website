@@ -1,5 +1,7 @@
-import React from 'react'
-import { motion } from 'framer-motion' // Import Framer Motion
+'use client'
+
+import { useRef } from 'react'
+import { motion, useInView } from 'framer-motion'
 
 interface SkillTitleProps {
   name: string
@@ -7,24 +9,27 @@ interface SkillTitleProps {
 }
 
 function SkillTitle({ name, percent }: SkillTitleProps) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-20px' })
+
   return (
-    <div className="mb-4 py-3">
-      <h3 className="text-md font-semibold text-[#C5C4CA]">{name}</h3>
-      <div className="w-full bg-gray-200 rounded-lg mt-1">
-        <motion.div
-          className="bg-[#C652EE] text-xs leading-5 rounded-lg text-center text-white"
-          initial={{ width: 0 }} // Start with a width of 0
-          animate={{ width: `${percent}%` }} // Animate to the specified width
-          transition={{ duration: 0.8 }} // Duration for the animation
-          whileHover={{ scale: 1.05 }} // Scale effect on hover
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }} // Center text
-        >
+    <div ref={ref} className="mb-4">
+      <div className="flex justify-between mb-1.5">
+        <span className="text-sm font-semibold" style={{ color: 'var(--text)' }}>
+          {name}
+        </span>
+        <span className="text-xs font-medium" style={{ color: 'var(--text-muted)' }}>
           {percent}%
-        </motion.div>
+        </span>
+      </div>
+      <div className="w-full h-2 rounded-full" style={{ background: 'var(--border)' }}>
+        <motion.div
+          className="h-2 rounded-full"
+          style={{ background: 'var(--accent)' }}
+          initial={{ width: 0 }}
+          animate={isInView ? { width: `${percent}%` } : { width: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+        />
       </div>
     </div>
   )

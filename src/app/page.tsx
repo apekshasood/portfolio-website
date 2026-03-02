@@ -1,22 +1,22 @@
 'use client'
 
+import Navbar from '@/app/components/Navbar'
+import HomeSection from '@/app/components/HomeSection'
 import AboutMe from '@/app/components/AboutMe'
 import Experience from '@/app/components/Experience'
-import HomeSection from '@/app/components/HomeSection'
-import Navbar from '@/app/components/Navbar'
-import Skills from './components/Skills'
-import Footer from './components/Footer'
-import ContactMe from './components/ContactMe'
+import Skills from '@/app/components/Skills'
+import Blog from '@/app/components/Blog'
+import Footer from '@/app/components/Footer'
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-[#21242E] p-6 lg:p-12">
+    <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
       <Navbar />
       <HomeSection />
       <AboutMe />
       <Experience />
       <Skills />
-      {/* <ContactMe /> */}
+      <Blog />
       <Footer />
     </main>
   )

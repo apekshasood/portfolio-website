@@ -1,72 +1,110 @@
+'use client'
+
 import Link from 'next/link'
 import Image from 'next/image'
+import { Link as ScrollLink } from 'react-scroll'
 
-const Footer = () => {
+const socials = [
+  { href: 'mailto:apekshasood03@gmail.com', icon: '/images/Email-Icon.svg', label: 'Email', external: false },
+  { href: 'https://www.linkedin.com/in/apeksha-sood/', icon: '/images/LinkedIn-Icon.svg', label: 'LinkedIn', external: true },
+  { href: 'https://github.com/apekshasood', icon: '/images/Git-Icon.svg', label: 'GitHub', external: true },
+  { href: 'https://www.behance.net/apeksha13', icon: '/images/Behance-Icon.svg', label: 'Behance', external: true },
+]
+
+const nav = [
+  { name: 'Home', to: 'home' },
+  { name: 'About', to: 'about' },
+  { name: 'Experience', to: 'experience' },
+  { name: 'Skills', to: 'skills' },
+  { name: 'Blog', to: 'blog' },
+]
+
+export default function Footer() {
   return (
-    <footer className="bg-[#21242E] py-8">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          <Image src="/images/Logo.svg" alt="Logo" width={150} height={50} />
-          <div className="flex items-center space-x-6">
-            <Link href="mailto:apekshasood03@gmail.com" aria-label="Email">
-              <Image
-                src="/images/Email-Icon.svg"
-                alt="Email Icon"
-                width={24}
-                height={24}
-                className="hover:opacity-80 transition-opacity duration-200"
-              />
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/apeksha-sood/"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="LinkedIn"
+    <footer
+      className="border-t"
+      style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
+    >
+      <div className="max-w-6xl mx-auto px-6 py-14">
+        <div className="grid sm:grid-cols-3 gap-10 mb-10">
+          {/* Brand */}
+          <div>
+            <span className="text-2xl font-black gradient-text">AS.</span>
+            <p className="mt-3 text-sm leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+              Senior Frontend Engineer building fast, accessible, scalable web &amp; mobile products.
+            </p>
+            <p className="mt-3 text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
+              apekshasood03@gmail.com
+            </p>
+          </div>
+
+          {/* Nav */}
+          <div>
+            <p
+              className="text-xs font-bold uppercase tracking-[0.15em] mb-4"
+              style={{ color: 'var(--text-subtle)' }}
             >
-              <Image
-                src="/images/LinkedIn-Icon.svg"
-                alt="LinkedIn Icon"
-                width={24}
-                height={24}
-                className="hover:opacity-80 transition-opacity duration-200"
-              />
-            </Link>
-            <Link
-              href="https://github.com/apekshasood"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub"
+              Navigation
+            </p>
+            <ul className="space-y-2.5">
+              {nav.map((item) => (
+                <li key={item.to}>
+                  <ScrollLink
+                    to={item.to}
+                    smooth
+                    offset={-64}
+                    duration={500}
+                    className="text-sm cursor-pointer transition-colors duration-200"
+                    style={{ color: 'var(--text-muted)' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = 'var(--text-muted)')}
+                  >
+                    {item.name}
+                  </ScrollLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Social */}
+          <div>
+            <p
+              className="text-xs font-bold uppercase tracking-[0.15em] mb-4"
+              style={{ color: 'var(--text-subtle)' }}
             >
-              <Image
-                src="/images/Git-Icon.svg"
-                alt="GitHub Icon"
-                width={24}
-                height={24}
-                className="hover:opacity-80 transition-opacity duration-200"
-              />
-            </Link>
-            <Link
-              href="https://www.behance.net/apeksha13"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Behance"
-            >
-              <Image
-                src="/images/Behance-Icon.svg"
-                alt="Behance Icon"
-                width={24}
-                height={24}
-                className="hover:opacity-80 transition-opacity duration-200"
-              />
-            </Link>
+              Connect
+            </p>
+            <div className="flex gap-3 flex-wrap">
+              {socials.map((s) => (
+                <Link
+                  key={s.label}
+                  href={s.href}
+                  target={s.external ? '_blank' : undefined}
+                  rel={s.external ? 'noreferrer' : undefined}
+                  aria-label={s.label}
+                  className="p-2.5 rounded-lg border transition-all duration-200 hover:border-[var(--accent)] hover:bg-[var(--accent-glow)]"
+                  style={{ background: 'var(--surface-2)', borderColor: 'var(--border)' }}
+                >
+                  <Image src={s.icon} alt={`${s.label} icon`} width={18} height={18} />
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="mt-6 text-center text-sm text-[#C5C4CA]">
-          © {new Date().getFullYear()} Apeksha Sood. All rights reserved.
+
+        {/* Bottom */}
+        <div
+          className="pt-8 border-t flex flex-col sm:flex-row items-center justify-between gap-2"
+          style={{ borderColor: 'var(--border)' }}
+        >
+          <p className="text-xs" style={{ color: 'var(--text-subtle)' }}>
+            © {new Date().getFullYear()} Apeksha Sood. All rights reserved.
+          </p>
+          <p className="text-xs" style={{ color: 'var(--text-subtle)' }}>
+            Built with Next.js · Tailwind CSS · Framer Motion
+          </p>
         </div>
       </div>
     </footer>
   )
 }
-
-export default Footer
