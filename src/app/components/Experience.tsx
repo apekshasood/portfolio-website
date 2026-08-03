@@ -1,158 +1,111 @@
-'use client'
+"use client";
 
-import { useRef } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { Reveal, SectionHeading } from "./Reveal";
 
 const jobs = [
   {
-    company: 'Saksoft Pvt. Ltd.',
-    role: 'Senior Frontend Engineer',
-    period: 'Oct 2024 – Present',
+    company: "Saksoft Technologies Pvt. Ltd.",
+    role: "UI Developer",
+    location: "Pune",
+    period: "Oct 2024 – Present",
     current: true,
     points: [
-      'Leading frontend architecture for enterprise SaaS products with React, TypeScript & Next.js.',
-      'Built a shared Design System that reduced feature development time by 30%.',
-      'Achieved 40% faster load times via code splitting, lazy loading & memoisation.',
-      'Introduced Micro-Frontend architecture (Webpack Module Federation) across 4 teams.',
-      'Set up Sentry & Datadog observability, cutting MTTR by 50%.',
+      "Lead frontend architecture initiatives across applications, ensuring performance, scalability and consistency.",
+      "Built an AI-powered document-intelligence platform end to end — React + TypeScript front end with a Python/FastAPI backend on the cloud.",
+      "Integrated LLM services through FastAPI endpoints, handling prompt orchestration, response handling and error/fallback states.",
+      "Designed the conversational chat interface — token-by-token streaming responses, chat history, session state and source/citation rendering.",
+      "Implemented SSO-based authentication & authorization with token handling, protected routes and session refresh.",
+      "Built resilient document upload, storage and retrieval flows with progress, retry and failure recovery.",
+      "Migrated a legacy Angular dashboard to a modern React stack; introduced Storybook as a shared design system and mentor junior developers.",
     ],
   },
   {
-    company: 'Gojoko Technology Pvt. Ltd.',
-    role: 'Frontend Engineer',
-    period: 'Oct 2022 – Sep 2024',
+    company: "Gojoko Technology Pvt. Ltd.",
+    role: "Frontend Developer",
+    location: "Noida",
+    period: "Oct 2022 – Oct 2024",
     current: false,
     points: [
-      "Led Gojoko's website rebuild in Next.js — 30% Core Web Vitals improvement.",
-      'Delivered a React Native credit card app, reducing load times by 20%.',
-      'Integrated GraphQL cutting data-fetching times by 15%.',
-      'Improved site performance by 25% through cross-functional optimisation.',
+      "Developed and maintained product websites and web apps in React.js, Next.js and Angular.",
+      "Led development of Gojoko's new website in Next.js — a 30% gain in performance metrics and improved engagement.",
+      "Built a Storybook-driven component library in an Nx monorepo, reducing duplication by ~35%.",
+      "Architected the Nx monorepo structure, standardizing build and test pipelines.",
+      "Worked on a credit-card product in React Native (−20% load times) and integrated GraphQL (−15% data-fetching times).",
     ],
   },
   {
-    company: 'Newgen Software Pvt. Ltd.',
-    role: 'Frontend Engineer',
-    period: 'Sep 2020 – Oct 2022',
+    company: "Newgen Software Pvt. Ltd.",
+    role: "Frontend Developer",
+    location: "Noida",
+    period: "Sept 2020 – Oct 2022",
     current: false,
     points: [
-      'Led process re-engineering in React.js & React Native, boosting service efficiency by 25%.',
-      'Implemented Micro-Frontend architecture with Webpack Module Federation.',
-      'Shipped an SPA (React + Redux + TypeScript) that became the primary internal portal.',
-      'Compressed release cycle from 5 days to 2 hours with CI/CD pipelines.',
+      "Led a major process re-engineering project in React.js and React Native — 25% higher process efficiency, 15% fewer communication errors.",
+      "Implemented micro-frontend architecture with Webpack Module Federation, cutting build times by 20%.",
+      "Established Storybook within the design system for reusable component documentation.",
+      "Migrated 20+ legacy interfaces from JSP to Angular, cutting bug reports by 30%.",
+      "Implemented a CI/CD pipeline, reducing time-to-deployment from 5 days to 2 hours; peer reviews cut post-deployment defects by 40%.",
     ],
   },
-]
+];
 
 export default function Experience() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-80px' })
-
   return (
-    <section id="experience" className="py-16 lg:py-24 relative">
-      <div
-        className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 opacity-30"
-        style={{ background: 'linear-gradient(to bottom, transparent, var(--accent), transparent)' }}
-      />
+    <section id="experience" className="py-20 lg:py-28" style={{ scrollMarginTop: 64, background: "var(--bg-2)" }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <SectionHeading index="02" label="Experience">
+          Where I&apos;ve <span className="hl">built things.</span>
+        </SectionHeading>
 
-      <div ref={ref} className="max-w-6xl mx-auto px-6">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="mb-10"
-        >
-          <p className="text-xs font-bold uppercase tracking-[0.2em] mb-3" style={{ color: 'var(--accent)' }}>
-            02 &mdash; Experience
-          </p>
-          <h2 className="text-4xl lg:text-5xl font-black" style={{ color: 'var(--text)' }}>
-            Where I&apos;ve <span className="gradient-text">built things.</span>
-          </h2>
-        </motion.div>
-
-        {/* Timeline entries */}
-        <div className="flex flex-col gap-0">
+        <div className="flex flex-col">
           {jobs.map((job, i) => (
-            <motion.div
-              key={job.company}
-              initial={{ opacity: 0, y: 24 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.15, duration: 0.5 }}
-              className="relative flex gap-8 pb-12"
-            >
-              {/* Timeline spine + dot */}
-              <div className="flex flex-col items-center flex-shrink-0">
-                {/* Dot */}
-                <div
-                  className="w-3 h-3 rounded-full mt-1.5 flex-shrink-0 z-10"
-                  style={{
-                    background: job.current ? 'var(--accent)' : 'var(--surface)',
-                    border: `2px solid ${job.current ? 'var(--accent)' : 'var(--border)'}`,
-                    boxShadow: job.current ? '0 0 0 4px var(--accent-glow)' : 'none',
-                  }}
-                />
-                {/* Connecting line (hidden on last item) */}
-                {i < jobs.length - 1 && (
-                  <div
-                    className="flex-1 w-px mt-2"
-                    style={{ background: 'var(--border)' }}
-                  />
-                )}
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 pb-2">
-                {/* Meta row */}
-                <div className="flex flex-wrap items-center gap-3 mb-4">
-                  <span
-                    className="text-xs font-mono font-semibold px-2.5 py-1 rounded-md"
-                    style={{ background: 'var(--surface-2)', color: 'var(--text-muted)' }}
-                  >
-                    {job.period}
-                  </span>
-                  {job.current && (
-                    <span
-                      className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
-                      style={{
-                        background: 'var(--accent-glow)',
-                        color: 'var(--accent)',
-                        border: '1px solid var(--accent)',
-                      }}
-                    >
-                      Current
-                    </span>
-                  )}
+            <Reveal key={job.company} delay={i * 0.12}>
+              <div className="relative flex gap-6 sm:gap-8 pb-12">
+                {/* Spine */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <div className="w-3 h-3 rounded-full mt-1.5 z-10"
+                    style={{
+                      background: job.current ? "var(--accent)" : "var(--surface)",
+                      border: `2px solid ${job.current ? "var(--accent)" : "var(--line)"}`,
+                      boxShadow: job.current ? "0 0 0 4px var(--accent-soft)" : "none",
+                    }} />
+                  {i < jobs.length - 1 && <div className="flex-1 w-px mt-2" style={{ background: "var(--line)" }} />}
                 </div>
 
-                {/* Card */}
-                <motion.div
-                  whileHover={{ y: -4, borderColor: 'var(--accent)' }}
-                  className="rounded-2xl border p-6 transition-all duration-200"
-                  style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}
-                >
-                  <h3 className="font-black text-lg mb-0.5" style={{ color: 'var(--text)' }}>
-                    {job.role}
-                  </h3>
-                  <p className="text-sm font-semibold mb-5" style={{ color: 'var(--accent)' }}>
-                    {job.company}
-                  </p>
-                  <ul className="space-y-2.5">
-                    {job.points.map((pt, j) => (
-                      <li key={j} className="flex items-start gap-3 text-sm leading-relaxed">
-                        <span
-                          className="mt-[7px] w-1.5 h-1.5 rounded-full flex-shrink-0"
-                          style={{ background: 'var(--accent)' }}
-                        />
-                        <span style={{ color: 'var(--text-muted)' }}>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
+                {/* Content */}
+                <div className="flex-1">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
+                    <span className="font-mono text-xs font-semibold px-2.5 py-1 rounded-md" style={{ background: "var(--surface-2)", color: "var(--muted)" }}>
+                      {job.period}
+                    </span>
+                    <span className="font-mono text-xs" style={{ color: "var(--subtle)" }}>{job.location}</span>
+                    {job.current && (
+                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wide"
+                        style={{ background: "var(--accent-soft)", color: "var(--accent)", border: "1px solid var(--accent)" }}>
+                        Current
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-1"
+                    style={{ background: "var(--surface)", borderColor: "var(--line)" }}>
+                    <h3 className="font-display font-bold text-lg mb-0.5" style={{ color: "var(--text)" }}>{job.role}</h3>
+                    <p className="text-sm font-semibold mb-5" style={{ color: "var(--accent)" }}>{job.company}</p>
+                    <ul className="space-y-2.5">
+                      {job.points.map((pt, j) => (
+                        <li key={j} className="flex items-start gap-3 text-sm leading-relaxed">
+                          <span className="mt-[7px] w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "var(--accent)" }} />
+                          <span style={{ color: "var(--muted)" }}>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }

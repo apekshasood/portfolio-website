@@ -1,23 +1,25 @@
-'use client'
-
-import Navbar from '@/app/components/Navbar'
-import HomeSection from '@/app/components/HomeSection'
-import AboutMe from '@/app/components/AboutMe'
-import Experience from '@/app/components/Experience'
-import Skills from '@/app/components/Skills'
-import Blog from '@/app/components/Blog'
-import Footer from '@/app/components/Footer'
+import Navbar from "@/app/components/Navbar";
+import Hero from "@/app/components/Hero";
+import Marquee from "@/app/components/Marquee";
+import About from "@/app/components/About";
+import Experience from "@/app/components/Experience";
+import Skills from "@/app/components/Skills";
+import Education from "@/app/components/Education";
+import Contact from "@/app/components/Contact";
+import Footer from "@/app/components/Footer";
 
 export default function Home() {
   return (
-    <main style={{ background: 'var(--bg)', minHeight: '100vh' }}>
+    <main style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Navbar />
-      <HomeSection />
-      <AboutMe />
+      <Hero />
+      <Marquee />
+      <About />
       <Experience />
       <Skills />
-      <Blog />
+      <Education />
+      <Contact />
       <Footer />
     </main>
-  )
+  );
 }
