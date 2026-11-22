@@ -3,11 +3,12 @@ import "./globals.css";
 import { ThemeProvider } from "@/app/context/ThemeContext";
 
 export const metadata: Metadata = {
-  title: "Apeksha Sood — Frontend Engineer",
+  title: "Apeksha Sood — Full-stack Engineer",
   description:
-    "Frontend engineer with 5.8 years building web & mobile apps in React, React Native & Angular. Currently a UI Developer at Saksoft working across the full stack on an AI/LLM platform.",
+    "Full-stack engineer. 6 years shipping React and TypeScript front ends with Node.js and FastAPI backends, for fintech, banking and enterprise clients.",
   keywords: [
     "Apeksha Sood",
+    "Full-stack Engineer",
     "Frontend Engineer",
     "React",
     "TypeScript",
@@ -18,9 +19,9 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Apeksha Sood" }],
   openGraph: {
-    title: "Apeksha Sood — Frontend Engineer",
+    title: "Apeksha Sood — Full-stack Engineer",
     description:
-      "Frontend engineer building web products end to end — including the AI parts.",
+      "I build production web apps, and the backends and AI features behind them.",
     type: "website",
   },
 };
