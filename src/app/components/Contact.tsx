@@ -4,11 +4,11 @@ import { Reveal, SectionHeading } from "./Reveal";
 
 const links = [
   { label: "Email", value: "apekshasood.96@gmail.com", href: "mailto:apekshasood.96@gmail.com" },
-  { label: "Phone", value: "+91 78956 29961", href: "tel:+917895629961" },
   { label: "Location", value: "Pune, India", href: null },
-  { label: "Website", value: "apekshasood.in", href: "https://apekshasood.in" },
   { label: "LinkedIn", value: "in/apeksha-sood", href: "https://www.linkedin.com/in/apeksha-sood/" },
   { label: "GitHub", value: "github.com/apekshasood", href: "https://github.com/apekshasood" },
+  { label: "Behance", value: "behance.net/apeksha13", href: "https://www.behance.net/apeksha13" },
+  { label: "Resume", value: "Download PDF", href: "/resume/Apeksha_Sood_Resume.pdf" },
 ];
 
 export default function Contact() {
@@ -22,8 +22,7 @@ export default function Contact() {
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 items-start">
           <Reveal>
             <p className="text-lg leading-relaxed mb-6" style={{ color: "var(--muted)" }}>
-              I&apos;m open to senior frontend and full-stack roles. If you&apos;re building something
-              ambitious — especially around AI-powered product experiences — I&apos;d love to talk.
+              Open to full-stack and senior frontend roles. Remote, or relocation with visa sponsorship.
             </p>
             <div className="flex flex-wrap gap-3">
               <a href="mailto:apekshasood.96@gmail.com"
@@ -50,7 +49,7 @@ export default function Contact() {
                   </div>
                 );
                 return l.href ? (
-                  <a key={l.label} href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer"
+                  <a key={l.label} href={l.href} target={l.href.startsWith("mailto:") ? undefined : "_blank"} rel="noreferrer"
                     className="block transition-colors duration-150 hover:brightness-95"
                     style={{ background: "transparent" }}>
                     {inner}
