@@ -7,7 +7,7 @@ Personal portfolio site. Built with **Next.js 14 (App Router)**, **TypeScript**,
 - Developer-editorial design with a light / dark theme toggle (defaults to dark, remembers your choice)
 - Animated hero with an auto-typing terminal and an infinite tech-stack marquee
 - Scroll-reveal animations throughout
-- Sections: Hero, About, Experience, Skills, Education & Certifications, Contact
+- Sections: Hero, Selected work, About, Experience, Skills, Education & Certifications, Contact
 - Fully responsive, accessible, and SEO-ready
 
 ## Getting started
@@ -35,7 +35,7 @@ src/app/
   context/
     ThemeContext.tsx  # light/dark toggle
   components/
-    Navbar.tsx  Hero.tsx  Terminal.tsx  Marquee.tsx
+    Navbar.tsx  Hero.tsx  Terminal.tsx  Work.tsx  Marquee.tsx
     About.tsx  Experience.tsx  Skills.tsx
     Education.tsx  Contact.tsx  Footer.tsx  Reveal.tsx
 public/

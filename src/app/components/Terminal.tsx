@@ -24,25 +24,25 @@ export default function Terminal() {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full max-w-[520px] rounded-[14px] overflow-hidden"
+      className="w-full max-w-[380px] rounded-[12px] overflow-hidden opacity-90"
       style={{
         background: "var(--term-bg)",
         border: "1px solid var(--term-line)",
-        boxShadow: "0 30px 70px rgba(0,0,0,0.45)",
+        boxShadow: "0 16px 40px rgba(0,0,0,0.30)",
       }}
     >
       {/* Window bar */}
-      <div className="flex items-center gap-2 px-4 py-3 border-b" style={{ borderColor: "var(--term-line)", background: "var(--term-bar)" }}>
-        <span className="w-[11px] h-[11px] rounded-full" style={{ background: "#ff5f57" }} />
-        <span className="w-[11px] h-[11px] rounded-full" style={{ background: "#ffbd2e" }} />
-        <span className="w-[11px] h-[11px] rounded-full" style={{ background: "#28c840" }} />
-        <span className="ml-2 font-mono text-xs" style={{ color: "#6b7488" }}>~ apeksha — zsh</span>
+      <div className="flex items-center gap-1.5 px-3 py-2 border-b" style={{ borderColor: "var(--term-line)", background: "var(--term-bar)" }}>
+        <span className="w-[9px] h-[9px] rounded-full" style={{ background: "#ff5f57" }} />
+        <span className="w-[9px] h-[9px] rounded-full" style={{ background: "#ffbd2e" }} />
+        <span className="w-[9px] h-[9px] rounded-full" style={{ background: "#28c840" }} />
+        <span className="ml-2 font-mono text-[10.5px]" style={{ color: "#6b7488" }}>~ apeksha — zsh</span>
       </div>
 
       {/* Body */}
-      <div className="p-[18px] font-mono text-[13px] leading-[1.95]" style={{ color: "#cbd3e6", minHeight: 250 }}>
+      <div className="p-3.5 font-mono text-[11px] leading-[1.8]" style={{ color: "#cbd3e6", minHeight: 190 }}>
         <div><span style={{ color: "var(--accent-2)" }}>➜</span> <span style={{ color: "#5a6472" }}>whoami</span></div>
-        <div style={{ color: "#8b93b0" }}>Frontend Engineer · UI Developer @ Saksoft</div>
+        <div style={{ color: "#8b93b0" }}>Full-stack Engineer · UI Developer @ Saksoft</div>
         <br />
         <div><span style={{ color: "var(--accent-2)" }}>➜</span> <span style={{ color: "#5a6472" }}>cat stack.json</span></div>
         <div><span style={{ color: "#89ddff" }}>{"{"}</span></div>

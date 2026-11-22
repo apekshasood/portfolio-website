@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useTheme } from "@/app/context/ThemeContext";
 
 const navItems = [
+  { name: "~/work", to: "work" },
   { name: "~/about", to: "about" },
   { name: "~/experience", to: "experience" },
   { name: "~/skills", to: "skills" },
@@ -54,7 +55,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden lg:flex items-center gap-1">
           {navItems.map((item) => (
             <a
               key={item.to}
@@ -96,7 +97,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden grid place-items-center w-[38px] h-[38px] rounded-[9px]"
+            className="lg:hidden grid place-items-center w-[38px] h-[38px] rounded-[9px]"
             style={{ background: "var(--surface-2)", border: "1px solid var(--line)", color: "var(--text)" }}
             aria-label="Toggle menu"
           >
@@ -111,7 +112,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="md:hidden border-t" style={{ background: "var(--surface)", borderColor: "var(--line)" }}>
+        <div className="lg:hidden border-t" style={{ background: "var(--surface)", borderColor: "var(--line)" }}>
           <div className="px-6 py-4 flex flex-col gap-1">
             {navItems.map((item) => (
               <a

@@ -12,7 +12,7 @@ export default function Education() {
   return (
     <section id="education" className="py-20 lg:py-28" style={{ scrollMarginTop: 64, background: "var(--bg-2)" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading index="04" label="Education & Certifications">
+        <SectionHeading index="05" label="Education & Certifications">
           Foundations &amp; <span className="hl">credentials.</span>
         </SectionHeading>
 

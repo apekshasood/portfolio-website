@@ -17,7 +17,7 @@ export default function Skills() {
   return (
     <section id="skills" className="py-20 lg:py-28" style={{ scrollMarginTop: 64 }}>
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading index="03" label="Skills">
+        <SectionHeading index="04" label="Skills">
           What I <span className="hl">work with.</span>
         </SectionHeading>
 
