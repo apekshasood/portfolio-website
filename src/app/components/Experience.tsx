@@ -53,7 +53,7 @@ export default function Experience() {
   return (
     <section id="experience" className="py-20 lg:py-28" style={{ scrollMarginTop: 64, background: "var(--bg-2)" }}>
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading index="02" label="Experience">
+        <SectionHeading index="03" label="Experience">
           Where I&apos;ve <span className="hl">built things.</span>
         </SectionHeading>
 

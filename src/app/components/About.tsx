@@ -13,7 +13,7 @@ export default function About() {
   return (
     <section id="about" className="py-20 lg:py-28" style={{ scrollMarginTop: 64 }}>
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading index="01" label="About">
+        <SectionHeading index="02" label="About">
           A frontend engineer who&apos;s <span className="hl">comfortable across the stack.</span>
         </SectionHeading>
 

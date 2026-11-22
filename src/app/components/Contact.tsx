@@ -15,7 +15,7 @@ export default function Contact() {
   return (
     <section id="contact" className="py-20 lg:py-28" style={{ scrollMarginTop: 64 }}>
       <div className="max-w-6xl mx-auto px-6">
-        <SectionHeading index="05" label="Contact">
+        <SectionHeading index="06" label="Contact">
           Let&apos;s build <span className="hl">something.</span>
         </SectionHeading>
 

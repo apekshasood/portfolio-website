@@ -1,5 +1,6 @@
 import Navbar from "@/app/components/Navbar";
 import Hero from "@/app/components/Hero";
+import Work from "@/app/components/Work";
 import Marquee from "@/app/components/Marquee";
 import About from "@/app/components/About";
 import Experience from "@/app/components/Experience";
@@ -13,6 +14,7 @@ export default function Home() {
     <main style={{ background: "var(--bg)", minHeight: "100vh" }}>
       <Navbar />
       <Hero />
+      <Work />
       <Marquee />
       <About />
       <Experience />
