@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useId, useRef, useState } from "react";
 import { sectionLabel } from "@/app/data/profile";
+import { jumpTo } from "./pipJump";
 
 type Msg = { role: "user" | "assistant"; content: string; sources?: string[]; error?: boolean; streaming?: boolean };
 
@@ -105,10 +106,16 @@ export default function PipChat({ onBack, autoFocus = false }: { onBack?: () => 
               {m.sources && m.sources.length > 0 && (
                 <span className="flex flex-wrap gap-1.5 mt-2">
                   {m.sources.map((s, k) => (
-                    <span key={s} className="font-mono text-[11px] px-2 py-1 rounded-md" style={{ border: "1px solid var(--pc-line)", color: "var(--pc-accent)" }}>
-                      [{k + 1}] {sectionLabel(s)}
-                    </span>
-                  ))}
+                  <button
+                    key={s}
+                    onClick={() => jumpTo(s)}
+                    title={`Show ${sectionLabel(s)} on the page`}
+                    className="font-mono text-[11px] px-2 py-1 rounded-md hover:underline"
+                    style={{ border: "1px solid var(--pc-line)", color: "var(--pc-accent)" }}
+                  >
+                    [{k + 1}] {sectionLabel(s)} ↓
+                  </button>
+                ))}
                 </span>
               )}
               {m.error && i === messages.length - 1 && lastUserQuestion && (

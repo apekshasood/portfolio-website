@@ -113,6 +113,8 @@ body {
 @keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
 @keyframes travel { 0% { left: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
 .pip-bob { animation: pipBob 3.2s ease-in-out infinite; }
+@keyframes pipHighlight { 0% { box-shadow: 0 0 0 0 var(--accent); } 25% { box-shadow: 0 0 0 4px var(--accent), 0 0 40px 6px var(--accent-soft); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.pip-highlight { animation: pipHighlight 2.4s ease-out; border-radius: 18px; }
 @keyframes pipPop { 0% { opacity: 0; transform: scale(0.6) translateY(12px); } 70% { transform: scale(1.05); } 100% { opacity: 1; transform: none; } }
 .pip-pop { animation: pipPop .35s cubic-bezier(.2,.9,.3,1.3) both; transform-origin: bottom right; }
 .pip-eye { animation: pipBlink 4s infinite; transform-origin: center; transform-box: fill-box; }

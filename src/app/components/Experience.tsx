@@ -4,6 +4,7 @@ import { Reveal, SectionHeading } from "./Reveal";
 
 const jobs = [
   {
+    anchor: "exp-saksoft",
     company: "Saksoft Technologies Pvt. Ltd.",
     role: "UI Developer",
     location: "Pune",
@@ -20,6 +21,7 @@ const jobs = [
     ],
   },
   {
+    anchor: "exp-gojoko",
     company: "Gojoko Technology Pvt. Ltd.",
     role: "Frontend Developer",
     location: "Noida",
@@ -34,6 +36,7 @@ const jobs = [
     ],
   },
   {
+    anchor: "exp-newgen",
     company: "Newgen Software Pvt. Ltd.",
     role: "Frontend Developer",
     location: "Noida",
@@ -60,7 +63,7 @@ export default function Experience() {
         <div className="flex flex-col">
           {jobs.map((job, i) => (
             <Reveal key={job.company} delay={i * 0.12}>
-              <div className="relative flex gap-6 sm:gap-8 pb-12">
+              <div id={job.anchor} className="relative flex gap-6 sm:gap-8 pb-12" style={{ scrollMarginTop: 96 }}>
                 {/* Spine */}
                 <div className="flex flex-col items-center flex-shrink-0">
                   <div className="w-3 h-3 rounded-full mt-1.5 z-10"
