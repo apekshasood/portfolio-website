@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Terminal from "./Terminal";
+import { MouseEvent, useEffect, useRef, useState } from "react";
+import PipGuide from "./PipGuide";
 
 const stats = [
   { value: "6", unit: " years", label: "experience" },
@@ -18,36 +19,99 @@ const rise = {
   }),
 };
 
+const WORDS = ["web apps.", "backends.", "AI features."];
+const CODE_CHARS = "{}<>/=;:()[]01_$#";
+
+// Types and rewrites the last words of the headline.
+function useTyped() {
+  const [text, setText] = useState(WORDS[0]);
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let word = 0, len = WORDS[0].length, deleting = false, hold = 22;
+    const t = setInterval(() => {
+      const full = WORDS[word];
+      if (hold > 0) { hold -= 1; return; }
+      if (!deleting && len < full.length) { len += 1; if (len === full.length) hold = 22; }
+      else if (!deleting) { deleting = true; return; }
+      else if (len > 0) len -= 1;
+      else { deleting = false; word = (word + 1) % WORDS.length; }
+      setText(WORDS[word].slice(0, len));
+    }, 85);
+    return () => clearInterval(t);
+  }, []);
+  return text;
+}
+
+// On hover, the name scrambles into code characters and resolves back.
+function CodeName({ text }: { text: string }) {
+  const [shown, setShown] = useState(text);
+  const timer = useRef<ReturnType<typeof setInterval> | null>(null);
+  useEffect(() => () => { if (timer.current) clearInterval(timer.current); }, []);
+  function run() {
+    if (timer.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    timer.current = setInterval(() => {
+      frame += 1;
+      const settled = Math.floor(frame / 2);
+      setShown(text.split("").map((c, i) => (c === " " || i < settled ? c : CODE_CHARS[Math.floor(Math.random() * CODE_CHARS.length)])).join(""));
+      if (settled >= text.length) {
+        if (timer.current) clearInterval(timer.current);
+        timer.current = null;
+        setShown(text);
+      }
+    }, 40);
+  }
+  return (
+    <span onMouseEnter={run} onFocus={run} tabIndex={-1} aria-label={text} className="cursor-default">
+      <span aria-hidden="true">{shown}</span>
+    </span>
+  );
+}
+
 export default function Hero() {
+  const typed = useTyped();
+  const ref = useRef<HTMLElement>(null);
+  function onMove(e: MouseEvent<HTMLElement>) {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }
+
   return (
     <section
       id="home"
-      className="relative dot-grid overflow-hidden"
+      ref={ref}
+      onMouseMove={onMove}
+      className="relative dot-grid spotlight overflow-hidden"
       style={{ scrollMarginTop: 64 }}
     >
       {/* Ambient glow */}
       <div className="pointer-events-none absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full blur-[120px] opacity-[0.16]" style={{ background: "var(--accent)" }} />
       <div className="pointer-events-none absolute bottom-0 right-0 w-[420px] h-[420px] rounded-full blur-[120px] opacity-[0.10]" style={{ background: "var(--accent-2)" }} />
 
-      <div className="relative max-w-6xl mx-auto px-6 pt-32 pb-16 min-h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-[1.3fr_0.7fr] gap-12 items-center">
+      <div className="relative max-w-6xl mx-auto px-6 pt-32 pb-16 min-h-[calc(100vh-64px)] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 items-center">
         {/* Left */}
         <div>
           <motion.div custom={0} variants={rise} initial="hidden" animate="show"
             className="inline-flex items-center gap-2 font-mono text-xs px-3.5 py-[7px] rounded-full mb-6"
             style={{ color: "var(--accent)", border: "1px solid var(--line)", background: "var(--accent-soft)" }}>
-            <span className="w-1.5 h-1.5 rounded-full blink" style={{ background: "var(--accent)" }} />
-            open_to_work = true
+            <span className="live-dot w-1.5 h-1.5 rounded-full" style={{ background: "#3DDC97" }} />
+            open_to_work = true · Full-stack Engineer
           </motion.div>
 
           <motion.h1 custom={1} variants={rise} initial="hidden" animate="show"
             className="font-display font-bold leading-[1.03] tracking-[-0.035em] mb-5"
-            style={{ fontSize: "clamp(2.5rem, 5.4vw, 4.3rem)", color: "var(--text)" }}>
-            Apeksha Sood —<br /><span className="hl">Full-stack Engineer</span>
+            style={{ fontSize: "clamp(3rem, 7vw, 5.6rem)", color: "var(--text)" }}>
+            <CodeName text="Apeksha Sood" />
+            <span className="sr-only"> — Full-stack Engineer</span>
           </motion.h1>
 
           <motion.p custom={2} variants={rise} initial="hidden" animate="show"
-            className="font-display font-semibold text-xl sm:text-2xl leading-[1.35] tracking-[-0.01em] max-w-[34ch] mb-4" style={{ color: "var(--text)" }}>
-            I build production web apps, and the backends and AI features behind them.
+            className="font-display font-semibold leading-[1.15] tracking-[-0.025em] mb-5" style={{ color: "var(--text)", fontSize: "clamp(1.6rem, 3vw, 2.4rem)" }}>
+            <span className="sr-only">I build production web apps, and the backends and AI features behind them.</span>
+            <span aria-hidden="true">I build production<br /><span style={{ color: "var(--accent)" }}>{typed}</span><span className="caret" style={{ color: "var(--accent)" }}>_</span></span>
           </motion.p>
 
           <motion.p custom={3} variants={rise} initial="hidden" animate="show"
@@ -89,9 +153,9 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right */}
-        <div className="flex justify-center lg:justify-end lg:self-end lg:pb-4">
-          <Terminal />
+        {/* Right: Pip, the guided tour and "Ask Pip" chat */}
+        <div className="flex justify-center lg:justify-end">
+          <PipGuide />
         </div>
       </div>
     </section>
