@@ -8,6 +8,7 @@ import Skills from "@/app/components/Skills";
 import Education from "@/app/components/Education";
 import Contact from "@/app/components/Contact";
 import Footer from "@/app/components/Footer";
+import FloatingPip from "@/app/components/FloatingPip";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
       <Education />
       <Contact />
       <Footer />
+      <FloatingPip />
     </main>
   );
 }
