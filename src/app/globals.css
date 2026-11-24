@@ -98,7 +98,53 @@ body {
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
 
+
+/* ─── Hero spotlight (follows the cursor) ──── */
+.spotlight { --mx: 70%; --my: 120px; }
+.spotlight::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(520px circle at var(--mx) var(--my), var(--accent-soft), transparent 65%);
+}
+
+/* ─── Pip, the guide ───────────────────────── */
+@keyframes pipBob { 0%,100% { transform: translateY(0) rotate(-3deg); } 50% { transform: translateY(-8px) rotate(3deg); } }
+@keyframes pipBlink { 0%,92%,100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(61,220,151,0.55); } 100% { box-shadow: 0 0 0 9px rgba(61,220,151,0); } }
+@keyframes caret { 0%,49% { opacity: 1; } 50%,100% { opacity: 0; } }
+@keyframes travel { 0% { left: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+.pip-bob { animation: pipBob 3.2s ease-in-out infinite; }
+.pip-eye { animation: pipBlink 4s infinite; transform-origin: center; transform-box: fill-box; }
+.live-dot { animation: livePulse 1.6s ease-out infinite; }
+.caret { animation: caret 1s steps(1) infinite; }
+.packet {
+  position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 12px var(--accent);
+  animation: travel 3.6s linear infinite;
+}
+
+/* Tour card: light card on the dark site, dark card on the light site */
+.pip-card {
+  --pc-bg: #F5F3FF; --pc-text: #14122B; --pc-muted: #4E5470; --pc-accent: #4B33D6;
+  --pc-soft: #E9E5FB; --pc-line: #D6D0F3; --pc-btn: #FFFFFF; --pc-live: #17784F; --pc-on-accent: #FFFFFF;
+  background: var(--pc-bg); color: var(--pc-text);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+html:not(.dark) .pip-card {
+  --pc-bg: #14122B; --pc-text: #F1EFFF; --pc-muted: #B5B2D6; --pc-accent: #8B7BFF;
+  --pc-soft: #221F45; --pc-line: #34305F; --pc-btn: #1B1838; --pc-live: #3DDC97; --pc-on-accent: #0B0E18;
+  box-shadow: 0 30px 80px rgba(20, 18, 43, 0.25);
+}
+:where(.pip-card button) { color: inherit; }
+.pip-card input::placeholder { color: var(--pc-muted); }
+.pip-card input:focus { --tw-ring-color: var(--pc-accent); }
+
+/* Work cards */
+.lift { transition: transform .25s ease, border-color .25s ease; }
+.lift:hover { transform: translateY(-4px); border-color: var(--accent) !important; }
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
+  .pip-bob, .pip-eye, .live-dot, .caret, .packet { animation: none; }
+  .lift:hover { transform: none; }
   html { scroll-behavior: auto; }
 }
