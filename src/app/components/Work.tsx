@@ -1,8 +1,9 @@
 "use client";
 
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { Reveal, SectionHeading } from "./Reveal";
 import { useLiveStatus } from "./useLiveStatus";
+import { PROJECT_EVENT } from "./pipJump";
 
 type Project = {
   id: string;
@@ -159,6 +160,16 @@ export default function Work() {
   const [picked, setPicked] = useState(0);
   const live = useLiveStatus();
   const p = projects[picked];
+
+  // Pip's citations can open a project here.
+  useEffect(() => {
+    const onPick = (e: Event) => {
+      const i = projects.findIndex((x) => x.id === (e as CustomEvent<string>).detail);
+      if (i >= 0) setPicked(i);
+    };
+    window.addEventListener(PROJECT_EVENT, onPick);
+    return () => window.removeEventListener(PROJECT_EVENT, onPick);
+  }, []);
   const status = p.liveId ? live?.find((r) => r.id === p.liveId) : undefined;
 
   return (
@@ -198,7 +209,7 @@ export default function Work() {
               })}
             </ul>
 
-            <article key={p.id} className="lift rounded-2xl border overflow-hidden" style={{ background: "var(--surface)", borderColor: "var(--line)" }} aria-live="polite">
+            <article id="work-panel" key={p.id} className="lift rounded-2xl border overflow-hidden" style={{ background: "var(--surface)", borderColor: "var(--line)" }} aria-live="polite">
               <div className="flex items-center gap-1.5 px-4 py-3 border-b" style={{ borderColor: "var(--line)", background: "var(--bg-2)" }}>
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FF5F57" }} />
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FEBC2E" }} />

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Pip from "./Pip";
 import PipChat from "./PipChat";
 import { chime, say, setSoundOn, soundOn } from "./pipSound";
+import { POINT_EVENT } from "./pipJump";
 
 // Pip in the bottom-right corner. Appears once the visitor scrolls past the hero;
 // a click plays a chime, Pip says hello, and the chat opens.
@@ -12,6 +13,8 @@ export default function FloatingPip() {
   const [open, setOpen] = useState(false);
   const [hint, setHint] = useState(false);
   const [sound, setSound] = useState(true);
+  const [mounted, setMounted] = useState(false); // keeps the chat history after the panel closes
+  const [point, setPoint] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     setSound(soundOn());
@@ -44,8 +47,35 @@ export default function FloatingPip() {
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
+  // A citation was clicked: tuck the panel away, then fly over and point at the section.
+  useEffect(() => {
+    let t1: ReturnType<typeof setTimeout>, t2: ReturnType<typeof setTimeout>;
+    const onPoint = (e: Event) => {
+      setOpen(false);
+      setPoint(null);
+      clearTimeout(t1);
+      clearTimeout(t2);
+      t1 = setTimeout(() => {
+        const el = document.getElementById((e as CustomEvent<string>).detail);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const x = Math.min(Math.max(r.left + 8, 8), window.innerWidth - 200);
+        const y = Math.min(Math.max(r.top - 28, 72), window.innerHeight - 120);
+        setPoint({ x, y });
+        t2 = setTimeout(() => setPoint(null), 3200);
+      }, 750);
+    };
+    window.addEventListener(POINT_EVENT, onPoint);
+    return () => {
+      window.removeEventListener(POINT_EVENT, onPoint);
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, []);
+
   function openChat() {
     setOpen(true);
+    setMounted(true);
     setHint(false);
     chime();
     setTimeout(() => say("Hi! How can I help you?"), 250);
@@ -58,12 +88,24 @@ export default function FloatingPip() {
     if (next) chime();
   }
 
-  if (!visible && !open) return null;
+  const pointer = point && (
+    <div className="fixed z-50 pip-pop flex items-start gap-1 pointer-events-none" style={{ left: point.x, top: point.y }} aria-hidden="true">
+      <span className="pip-bob block">
+        <Pip size={56} />
+      </span>
+      <span className="pip-card rounded-2xl rounded-bl-sm px-3 py-2 text-sm font-semibold mt-1">Here it is!</span>
+    </div>
+  );
+
+  if (!visible && !open && !mounted) return pointer || null;
 
   return (
+    <>
+    {pointer}
     <div className="fixed z-50 right-4 bottom-4 sm:right-6 sm:bottom-6 flex flex-col items-end gap-3">
-      {open && (
+      {mounted && (
         <section
+          hidden={!open}
           role="dialog"
           aria-label="Ask Pip about Apeksha"
           className="pip-card pip-pop rounded-[22px] p-5 w-[min(380px,calc(100vw-2rem))]"
@@ -106,7 +148,7 @@ export default function FloatingPip() {
         </section>
       )}
 
-      {!open && (
+      {!open && !point && (visible || mounted) && (
         <div className="flex items-end gap-2">
           {hint && (
             <span className="pip-card pip-pop rounded-2xl rounded-br-sm px-4 py-2.5 text-sm font-semibold mb-6">
@@ -121,5 +163,6 @@ export default function FloatingPip() {
         </div>
       )}
     </div>
+    </>
   );
 }
