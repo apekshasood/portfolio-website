@@ -92,14 +92,29 @@ export default function PipGuide() {
         <Pip size={84} />
       </div>
 
-      <section aria-label={mode === "tour" ? "Guided tour" : "Ask Pip about Apeksha"} className="pip-card rounded-[22px] p-5 sm:p-6">
-        <div className="flex items-center justify-between mb-3 pl-6">
-          <span className="text-sm">
-            <b style={{ color: "var(--pc-accent)" }}>Pip</b>
-            <span style={{ color: "var(--pc-muted)" }}>
-              {mode === "tour" ? ` · Stop ${stop + 1} of ${stops.length}` : " · answers only from her resume"}
-            </span>
-          </span>
+      <section aria-label="Pip, Apeksha's guide" className="pip-card rounded-[22px] p-5 sm:p-6">
+        <div className="flex items-center justify-between gap-2 mb-4 pl-6">
+          <div role="tablist" aria-label="Pip" className="flex p-1 rounded-full" style={{ background: "var(--pc-soft)", border: "1px solid var(--pc-line)" }}>
+            {([
+              ["tour", "Guide"],
+              ["chat", "Ask Pip"],
+            ] as const).map(([id, label]) => (
+              <button
+                key={id}
+                role="tab"
+                aria-selected={mode === id}
+                onClick={() => {
+                  if (id === "chat" && mode !== "chat") { chime(); setTimeout(() => say("Hi! How can I help you?"), 250); }
+                  setAuto(false);
+                  setMode(id);
+                }}
+                className="whitespace-nowrap text-[13px] font-semibold px-3.5 py-1.5 rounded-full transition-colors"
+                style={mode === id ? { background: "var(--pc-accent)", color: "var(--pc-on-accent)" } : { color: "var(--pc-muted)" }}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
           <button
             aria-label="Close Pip"
             onClick={() => {
@@ -116,8 +131,7 @@ export default function PipGuide() {
           </button>
         </div>
 
-        {mode === "tour" ? (
-          <>
+        <div role="tabpanel" hidden={mode !== "tour"}>
             <p className="text-[15.5px] leading-relaxed mb-4 min-h-[3.2em]" aria-live="polite">
               {stops[stop].text}
             </p>
@@ -131,10 +145,15 @@ export default function PipGuide() {
                 {stops[stop].live[1]}
               </span>
             </div>
-            <div className="flex gap-1 mb-4" aria-hidden="true">
-              {stops.map((_, k) => (
-                <span key={k} className="flex-1 h-[5px] rounded-full transition-colors" style={{ background: k <= stop ? "var(--pc-accent)" : "var(--pc-line)" }} />
-              ))}
+            <div className="flex items-center gap-3 mb-4">
+              <div className="flex flex-1 gap-1" aria-hidden="true">
+                {stops.map((_, k) => (
+                  <span key={k} className="flex-1 h-[5px] rounded-full transition-colors" style={{ background: k <= stop ? "var(--pc-accent)" : "var(--pc-line)" }} />
+                ))}
+              </div>
+              <span className="text-xs whitespace-nowrap" style={{ color: "var(--pc-muted)" }}>
+                {stop + 1} of {stops.length}
+              </span>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -160,10 +179,10 @@ export default function PipGuide() {
                 {last ? "Ask Pip ›" : "Next ›"}
               </button>
             </div>
-          </>
-        ) : (
-          <PipChat onBack={() => { setStop(0); setMode("tour"); }} />
-        )}
+        </div>
+        <div role="tabpanel" hidden={mode !== "chat"}>
+          <PipChat />
+        </div>
       </section>
     </div>
   );
